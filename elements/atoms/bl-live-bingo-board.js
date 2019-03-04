@@ -7,7 +7,7 @@ export class BLLiveBingoBoard extends connect(store, BLBingoBoard) {
   _mapStateToProps(state) {
     return {
       loading: state.loading,
-      board: state.bingoBoard
+      board: state.room && state.room.board
     };
   }
   _mapDispatchToEvents(dispatch) {

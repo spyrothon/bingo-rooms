@@ -1,23 +1,23 @@
-import { spyro2BingoList } from './bingo/spyro_4.1.js';
-import { bingoGenerator } from './bingo/generator.js';
 import {
-  RECEIVE_BINGO_BOARD
+  RECEIVE_ROOM
 } from './constants';
 
+const SERVER_HOST = "http://localhost:3000";
 
 const defaultHeaders = {
   'Accept': 'application/json',
-  // 'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
 };
+
 
 
 // //
 // Action creators
 // //
 
-export function requestBingoBoard() {
+export function requestRoom(roomId) {
   return dispatch => {
-    fetch("http://localhost:3000/api/rooms/create", {
+    fetch(`${SERVER_HOST}/api/rooms/${roomId}`, {
       headers: defaultHeaders,
       credentials: 'same-origin',
       method: 'GET'
@@ -25,8 +25,7 @@ export function requestBingoBoard() {
     .then(checkStatus)
     .then(parseJSON)
     .then((response) => {
-      console.log(response.data.room.board.cells)
-      return dispatch(receiveBingoBoard(response.data.room.board.cells));
+      return dispatch(receiveRoom(response.data.room));
     });
   }
 }
@@ -37,21 +36,11 @@ export function requestBingoBoard() {
 // Actions
 // //
 
-export function receiveBingoBoard(board) {
+export function receiveRoom(room) {
   return {
-    type: RECEIVE_BINGO_BOARD,
-    payload: {
-      board: board
-    }
-  }
-}
-
-export function generateBingoBoard() {
-  const board = bingoGenerator(spyro2BingoList, {});
-  return {
-    type: RECEIVE_BINGO_BOARD,
-    payload: {
-      board: board
+    type: RECEIVE_ROOM,
+    data: {
+      room: room
     }
   }
 }

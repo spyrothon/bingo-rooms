@@ -1,25 +1,25 @@
 import {
-  RECEIVE_BINGO_BOARD,
-  REQUEST_BINGO_BOARD
+  REQUEST_ROOM,
+  RECEIVE_ROOM
 } from "./constants";
 
 const initialState = {
   loading: false,
-  bingoBoard: null
+  room: null
 };
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case REQUEST_BINGO_BOARD:
+    case REQUEST_ROOM:
       return {
         ...state,
         loading: true
       }
-    case RECEIVE_BINGO_BOARD:
+    case RECEIVE_ROOM:
       return {
         ...state,
         loading: false,
-        bingoBoard: action.payload.board
+        room: action.data.room
       };
 
     default:

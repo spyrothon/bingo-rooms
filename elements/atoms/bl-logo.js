@@ -9,7 +9,7 @@ export class BLLogo extends LitElement {
   render() {
     return html`
       <style>
-        host {
+        :host {
           display: block;
         }
 

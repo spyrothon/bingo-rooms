@@ -1,14 +1,8 @@
-@import './theme.css';
-@import 'normalize.css';
-
-.layout {
-  position: absolute;
-  overflow: hidden;
-  width: 1600px;
-  height: 900px;
+* {
   box-sizing: border-box;
+}
 
+html {
+  background: var(--bl-color-background);
   font-family: var(--font-display);
-
-  background: var(--bl-gradient-background);
 }

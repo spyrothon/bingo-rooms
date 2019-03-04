@@ -1,8 +1,5 @@
 import { LitElement, html } from 'lit-element';
 
-import { spyro2BingoList } from '../../app/bingo/spyro_4.1.js';
-import { bingoGenerator } from '../../app/bingo/generator.js';
-
 
 export class BLBingoBoard extends LitElement {
   constructor() {
@@ -13,26 +10,28 @@ export class BLBingoBoard extends LitElement {
   static get properties() {
     return {
       loading: { type: Boolean },
-      board: { type: Array }
+      board: { type: Object }
     };
   }
 
   renderBoard() {
     if(this.loading || !this.board) return null;
 
-    return this.board.map((goal) => {
+    const { cells } = this.board;
+
+    return cells.map((cell) => {
       return html`
-        <span class="bingo-cell"><span>${goal.name}</span></span>
+        <span class="bingo-cell"><span>${cell.goal.name}</span></span>
       `;
     });
   }
 
   render() {
+    console.log(this.board)
     return html`
       <style>
-        host {
+        :host {
           display: block;
-          overflow: hidden;
         }
 
         .bingo-board {
