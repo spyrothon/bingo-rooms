@@ -3,6 +3,12 @@
 }
 
 html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "liga" on;
+  text-rendering: optimizeLegibility;
+
   background: var(--bl-color-background);
+  color: var(--bl-color-primary);
   font-family: var(--font-display);
 }

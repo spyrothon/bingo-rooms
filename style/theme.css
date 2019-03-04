@@ -9,7 +9,7 @@
 
 
   /* Element theming */
-  --bl-color-primary:     var(--purple-lightest);
+  --bl-color-primary:     var(--white);
   --bl-color-secondary:   var(--grey-lightest);
   --bl-color-background:  var(--purple-darkest);
 

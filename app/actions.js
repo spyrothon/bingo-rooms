@@ -1,5 +1,6 @@
 import {
-  RECEIVE_ROOM
+  RECEIVE_ROOM,
+  RECEIVE_ROOM_EVENTS
 } from './constants';
 
 const SERVER_HOST = "http://localhost:3000";
@@ -30,6 +31,21 @@ export function requestRoom(roomId) {
   }
 }
 
+export function requestRoomEvents(roomId) {
+  return dispatch => {
+    fetch(`${SERVER_HOST}/api/rooms/${roomId}/events`, {
+      headers: defaultHeaders,
+      credentials: 'same-origin',
+      method: 'GET'
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return dispatch(receiveRoomEvents(roomId, response.data.events));
+    });
+  }
+}
+
 
 
 // //
@@ -41,6 +57,16 @@ export function receiveRoom(room) {
     type: RECEIVE_ROOM,
     data: {
       room: room
+    }
+  }
+}
+
+export function receiveRoomEvents(roomId, events) {
+  return {
+    type: RECEIVE_ROOM_EVENTS,
+    data: {
+      roomId: roomId,
+      events: events
     }
   }
 }

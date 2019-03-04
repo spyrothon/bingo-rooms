@@ -17,6 +17,20 @@
   </head>
 
   <body>
-    <bl-live-bingo-board class="m-4"></bl-live-bingo-board>
+    <div class="container mx-auto mt-4">
+      <div class="flex">
+        <div class="flex-1">
+          <bl-live-bingo-board></bl-live-bingo-board>
+        </div>
+
+        <div class="flex-1">
+          <h3>Players</h3>
+          <div class="mt-32"></div>
+          <h3>Event Log</h3>
+          <bl-live-event-log></bl-live-event-log>
+          <div class="mt-32"></div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
