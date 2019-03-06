@@ -13,6 +13,7 @@ export const BingoBoard = (props) => {
       { _.map(cells, (cell) => (
           <span class="bingo-cell">
             <span>{cell.goal.name}</span>
+            <small>{cell.marked_by.join(', ')}</small>
           </span>
         ))
       }

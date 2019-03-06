@@ -25,7 +25,6 @@ export class RoomSocket {
     switch(payload.type) {
       case 'room_update':
         const { room, events: eventList } = payload;
-        console.log(payload)
         this.dispatch(receiveRoom(room));
         if(eventList && eventList.length > 0) {
           this.dispatch(receiveEvents(room.room_id, eventList));

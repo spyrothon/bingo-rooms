@@ -38,6 +38,20 @@ const displayForEvent = (event) => {
       return <span>Player Removed - <small>Name: {player}</small></span>;
     }
 
+    case 'cell_marked': {
+      const { player, team, cell_index, cell } = data;
+      return <span>
+        <em>{player}</em> marked <em>{cell.goal.name}</em> for team <em>{team}</em>
+      </span>;
+    }
+
+    case 'cell_unmarked': {
+      const { player, team, cell_index, cell } = data;
+      return <span>
+        <em>{player}</em> unmarked <em>{cell.goal.name}</em> for team <em>{team}</em>
+      </span>;
+    }
+
     default:
       return <span>{type}</span>;
   }

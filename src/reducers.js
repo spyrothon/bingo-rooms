@@ -49,7 +49,10 @@ export default function(state = initialState, action) {
       return dotProp.set(
         state,
         `rooms.${room_id}.events`,
-        (roomEvents) => roomEvents.length ? [...roomEvents, ...events] : events
+        (roomEvents) => {
+          const newEvents = roomEvents.length ? [...roomEvents, ...events] : events
+          return _.sortBy(newEvents, 'timestamp');
+        }
       );
     }
 

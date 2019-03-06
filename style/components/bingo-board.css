@@ -23,6 +23,14 @@
     background-color: var(--black);
     line-height: 1.3em;
 
+    &:hover {
+      @apply bg-grey-darkest cursor-pointer;
+    }
+
+    &:active {
+      @apply bg-grey-darker cursor-pointer;
+    }
+
     span {
       margin: auto;
     }
