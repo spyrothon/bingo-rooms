@@ -1,7 +1,7 @@
 import ReconnectingWebSocket from './lib/reconnecting-websocket';
 import {
   receiveRoom,
-  receiveEvent,
+  receiveEvents,
   receiveEventHistory
 } from './actions';
 
@@ -24,15 +24,12 @@ export class RoomSocket {
     const payload = JSON.parse(e.data);
     switch(payload.type) {
       case 'room_update':
-        this.dispatch(receiveRoom(payload.room));
-        break;
-
-      case 'event_history':
-        this.dispatch(receiveEventHistory(payload.room_id, payload.events));
-        break;
-
-      case 'event':
-        this.dispatch(receiveEvent(payload.events));
+        const { room, events: eventList } = payload;
+        console.log(payload)
+        this.dispatch(receiveRoom(room));
+        if(eventList && eventList.length > 0) {
+          this.dispatch(receiveEvents(room.room_id, eventList));
+        }
         break;
 
       case 'ok':

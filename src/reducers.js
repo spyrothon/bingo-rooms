@@ -6,7 +6,7 @@ import {
   RECEIVE_ROOM,
   REQUEST_ROOMS,
   RECEIVE_ROOMS,
-  RECEIVE_EVENT,
+  RECEIVE_EVENTS,
   RECEIVE_EVENT_HISTORY
 } from "./constants";
 
@@ -42,21 +42,14 @@ export default function(state = initialState, action) {
       }
     case RECEIVE_ROOM:
       const { room } = action.data;
-      return {
-        ...state,
-        loading: false,
-        rooms: {
-          ...state.rooms,
-          [room.room_id]: room
-        }
-      };
+      return dotProp.merge(state, `rooms.${room.room_id}`, room);
 
-    case RECEIVE_EVENT: {
-      const { room_id, event } = action.data;
+    case RECEIVE_EVENTS: {
+      const { room_id, events } = action.data;
       return dotProp.set(
         state,
         `rooms.${room_id}.events`,
-        events => [...events, event]
+        (roomEvents) => roomEvents.length ? [...roomEvents, ...events] : events
       );
     }
 
@@ -67,7 +60,6 @@ export default function(state = initialState, action) {
         `rooms.${room_id}.events`,
         events
       );
-      console.log(newState);
       return newState;
     }
 
