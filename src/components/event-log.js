@@ -11,9 +11,7 @@ export const EventLog = (props) => {
 
   return (
     <div class="event-log">
-      <ul>
-        { _.map(events, (event) => <Event event={event} />) }
-      </ul>
+      { _.map(events, (event) => <Event event={event} />) }
     </div>
   );
 }

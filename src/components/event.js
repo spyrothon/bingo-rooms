@@ -1,6 +1,7 @@
 import { h, render } from 'preact';
 import { connect } from 'preact-redux';
 import _ from 'lodash';
+import { DateTime } from 'luxon';
 
 
 const displayForEvent = (event) => {
@@ -56,9 +57,11 @@ export const Event = (props) => {
 
   const data = JSON.parse(raw_data);
 
+  const formattedTime = DateTime.fromISO(event.timestamp).toLocaleString(DateTime.TIME_SIMPLE);
+
   return (
     <div class="event-log-event">
-      <span class="text-grey-dark">[{event.timestamp}]: </span>
+      <span class="text-grey-dark font-mono">[{formattedTime}] </span>
       {displayForEvent(event)}
     </div>
   );
