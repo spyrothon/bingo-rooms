@@ -1,36 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html class="bg-black text-grey-light">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Spyrothon Bingo</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,400i,600" rel="stylesheet">
+
     <link rel="stylesheet" href="./style/main.css">
-
     <script src="./index.js"></script>
-
-    <style>
-      bl-live-bingo-board {
-        width: 560px;
-        height: 520px;
-      }
-    </style>
   </head>
 
   <body>
-    <div class="container mx-auto mt-4">
-      <div class="flex">
-        <div class="flex-1">
-          <bl-live-bingo-board></bl-live-bingo-board>
-        </div>
-
-        <div class="flex-1">
-          <h3>Players</h3>
-          <div class="mt-32"></div>
-          <h3>Event Log</h3>
-          <bl-live-event-log></bl-live-event-log>
-          <div class="mt-32"></div>
-        </div>
-      </div>
+    <div id="play-container">
     </div>
   </body>
 </html>

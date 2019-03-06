@@ -11,6 +11,9 @@
     "lit-element": "^2.0.0-rc.5",
     "lodash": "^4.17.11",
     "normalize.css": "^8.0.1",
+    "preact": "^8.4.2",
+    "preact-redux": "^2.0.3",
+    "preact-router": "^2.6.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "yarn": "^1.12.1"

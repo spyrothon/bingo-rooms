@@ -5,4 +5,43 @@
 
 @import './theme';
 
-@import './layout';
+@import './components/bingo-board';
+@import './components/section';
+
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  @apply
+    antialiased
+    bg-black
+    text-grey-light;
+
+  font-feature-settings: "liga" on;
+  text-rendering: optimizeLegibility;
+
+  font-family: var(--font-display);
+}
+
+a {
+  @apply text-grey;
+
+  &:hover {
+    @apply text-grey-light;
+  }
+}
+
+
+table {
+  @apply w-full;
+
+  th, td {
+    @apply py-1;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply mb-2;
+}

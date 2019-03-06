@@ -1,0 +1,13 @@
+.section {
+  @apply
+    py-2
+    px-4
+    my-4
+    mx-2
+    border
+    border-grey
+    border-solid
+    border
+    rounded
+    ;
+}
