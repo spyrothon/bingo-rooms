@@ -1,6 +1,8 @@
 import ReconnectingWebSocket from './lib/reconnecting-websocket';
 import {
-  receiveRoom
+  receiveRoom,
+  receiveEvent,
+  receiveEventHistory
 } from './actions';
 
 export class RoomSocket {
@@ -23,6 +25,17 @@ export class RoomSocket {
     switch(payload.type) {
       case 'room_update':
         this.dispatch(receiveRoom(payload.room));
+        break;
+
+      case 'event_history':
+        this.dispatch(receiveEventHistory(payload.room_id, payload.events));
+        break;
+
+      case 'event':
+        this.dispatch(receiveEvent(payload.events));
+        break;
+
+      case 'ok':
         break;
 
       default:

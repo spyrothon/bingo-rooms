@@ -3,6 +3,7 @@ import { connect } from 'preact-redux';
 import _ from 'lodash';
 
 import { BingoBoard } from './bingo-board';
+import { EventLog } from './event-log';
 import { Teams } from './teams';
 
 export const Room = (props) => {
@@ -14,7 +15,8 @@ export const Room = (props) => {
     name,
     teams,
     players,
-    board
+    board,
+    events
   } = room;
 
   return (
@@ -41,6 +43,8 @@ export const Room = (props) => {
 
           <div class="section">
             <h2>Events</h2>
+
+            <EventLog events={events} />
           </div>
         </div>
       </div>

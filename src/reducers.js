@@ -1,10 +1,13 @@
 import _ from 'lodash';
+import dotProp from 'dot-prop-immutable';
 
 import {
   REQUEST_ROOM,
   RECEIVE_ROOM,
   REQUEST_ROOMS,
-  RECEIVE_ROOMS
+  RECEIVE_ROOMS,
+  RECEIVE_EVENT,
+  RECEIVE_EVENT_HISTORY
 } from "./constants";
 
 const initialState = {
@@ -47,6 +50,26 @@ export default function(state = initialState, action) {
           [room.room_id]: room
         }
       };
+
+    case RECEIVE_EVENT: {
+      const { room_id, event } = action.data;
+      return dotProp.set(
+        state,
+        `rooms.${room_id}.events`,
+        events => [...events, event]
+      );
+    }
+
+    case RECEIVE_EVENT_HISTORY: {
+      const { room_id, events } = action.data;
+      const newState = dotProp.set(
+        state,
+        `rooms.${room_id}.events`,
+        events
+      );
+      console.log(newState);
+      return newState;
+    }
 
     default:
       return state;

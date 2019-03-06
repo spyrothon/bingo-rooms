@@ -1,6 +1,8 @@
 import {
   RECEIVE_ROOM,
-  RECEIVE_ROOMS
+  RECEIVE_ROOMS,
+  RECEIVE_EVENT,
+  RECEIVE_EVENT_HISTORY
 } from './constants';
 import { socket } from './store';
 
@@ -81,6 +83,26 @@ export function receiveRooms(rooms) {
     type: RECEIVE_ROOMS,
     data: {
       rooms: rooms
+    }
+  }
+}
+
+export function receiveEventHistory(room_id, events) {
+  return {
+    type: RECEIVE_EVENT_HISTORY,
+    data: {
+      room_id: room_id,
+      events: events
+    }
+  }
+}
+
+export function receiveEvent(room_id, event) {
+  return {
+    type: RECEIVE_EVENT,
+    data: {
+      room_id: room_id,
+      event: event
     }
   }
 }
