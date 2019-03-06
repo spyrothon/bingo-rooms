@@ -7,7 +7,7 @@
   grid-template-rows: repeat(var(--size), 1fr);
   grid-template-columns: repeat(var(--size), 1fr);
   grid-gap: 1px;
-  font-size: 13px;
+  font-size: 13.5px;
 
   border-width: 1px;
   border-style: solid;

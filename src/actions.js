@@ -2,6 +2,7 @@ import {
   RECEIVE_ROOM,
   RECEIVE_ROOMS
 } from './constants';
+import { socket } from './store';
 
 const SERVER_HOST = "http://localhost:3000";
 
@@ -44,6 +45,20 @@ export function requestRooms() {
       return dispatch(receiveRooms(response.data.rooms));
     });
   }
+}
+
+export function subscribeToRoomEvents(roomId) {
+  socket.send({
+    command: "subscribe",
+    topic: roomId
+  })
+}
+
+export function unsubscribeFromRoomEvents(roomId) {
+  socket.send({
+    command: "unsubscribe",
+    topic: roomId
+  })
 }
 
 

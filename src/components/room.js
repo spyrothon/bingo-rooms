@@ -3,34 +3,39 @@ import { connect } from 'preact-redux';
 import _ from 'lodash';
 
 import { BingoBoard } from './bingo-board';
+import { Teams } from './teams';
 
 export const Room = (props) => {
   const {
     room
   } = props;
 
+  const {
+    name,
+    teams,
+    players,
+    board
+  } = room;
+
   return (
     <div class="container mx-auto">
       <div class="flex">
         <div class="flex-1">
           <div class="section">
-            <h1>{room.name}</h1>
+            <h1>{name}</h1>
 
-            <BingoBoard board={room.board} />
+            <BingoBoard board={board} />
           </div>
         </div>
 
         <div class="flex-1">
           <div class="section">
             <h2>Teams</h2>
-            <p>{room.teams.length} Teams</p>
-            <ul>
-              { _.map(room.teams, (team) => <li>{team}</li>)}
-            </ul>
+            <Teams teams={teams} />
 
-            <p>{room.players.length} Players</p>
+            <p>{players.length} Players</p>
             <ul>
-              { _.map(room.players, (player) => <li>{player}</li>)}
+              { _.map(players, (player) => <li>{player}</li>)}
             </ul>
           </div>
 

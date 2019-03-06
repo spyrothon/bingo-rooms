@@ -14,8 +14,6 @@ class RoomsIndex extends Component {
   render() {
     const { rooms } = this.props;
 
-    console.log(rooms)
-
     return (
       <div class="container mx-auto">
         <h1>Bingo Rooms</h1>

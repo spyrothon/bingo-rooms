@@ -4,5 +4,11 @@ import {createStore, compose as origCompose, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import bingoReducer from './reducers';
 
+import { RoomSocket } from './room-socket';
+
+const SOCKET_HOST = "ws://localhost:3000/api/socket";
+
 // Create basic store which can be extended with `addStore`
 export const store = createStore(bingoReducer, applyMiddleware(thunk));
+// Connect realtime updates to the store
+export const socket = new RoomSocket(SOCKET_HOST, store.dispatch);

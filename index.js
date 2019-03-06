@@ -8,11 +8,10 @@ import {
   requestRoomEvents
 } from './src/actions';
 import bingoReducer from './src/reducers';
+import { store } from './src/store';
 
 import { App } from './src/app';
 
-
-const store = createStore(bingoReducer, applyMiddleware(thunk));
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector("#play-container");
@@ -23,4 +22,3 @@ document.addEventListener("DOMContentLoaded", () => {
     container
   );
 });
-
