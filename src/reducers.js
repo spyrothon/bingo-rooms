@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import dotProp from 'dot-prop-immutable';
+import Cookies from 'js-cookie';
 
 import { Actions } from "./constants";
 
@@ -7,7 +8,7 @@ import { Actions } from "./constants";
 const initialState = {
   loading: false,
   rooms: {},
-  sessionId: null
+  sessionId: Cookies.get('bl-session-id') || null
 };
 
 export default function(state = initialState, action) {
@@ -83,7 +84,7 @@ export default function(state = initialState, action) {
 
     case Actions.RECEIVE_AUTHENTICATION:
       const { sessionId } = action.data;
-      window.sessionId = sessionId;
+      Cookies.set('bl-session-id', sessionId);
       return {
         ...state,
         loading: { ...state.loading, auth: false },
@@ -92,6 +93,7 @@ export default function(state = initialState, action) {
 
     case Actions.RECEIVE_LOGOUT:
       window.sessionId = null;
+      Cookies.remove('bl-session-id');
       return { ...state, sessionId: null };
 
     default:
