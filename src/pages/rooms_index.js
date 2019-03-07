@@ -32,7 +32,6 @@ class RoomsIndex extends Component {
             <table class="table">
               <thead>
                 <tr>
-                  <th>Room ID</th>
                   <th>Name</th>
                   <th>Created By</th>
                   <th>Participants</th>
@@ -45,7 +44,6 @@ class RoomsIndex extends Component {
                     const { owner } = room;
                     return (
                       <tr>
-                        <td>{room.room_id}</td>
                         <td><a href={`/r/${room.room_id}`}>{room.name}</a></td>
                         <td>{owner && owner.name}</td>
                         <td>{room.players.length} Players / {room.teams.length} Teams</td>
