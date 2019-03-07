@@ -24,7 +24,7 @@ export const Room = (props) => {
   } = room;
 
   return (
-    <div class="container mx-auto">
+    <div class="room-container container mx-auto">
       <div class="flex">
         <div class="flex-1">
           <div class="section">
