@@ -7,12 +7,15 @@ import {
   REQUEST_ROOMS,
   RECEIVE_ROOMS,
   RECEIVE_EVENTS,
-  RECEIVE_EVENT_HISTORY
+  RECEIVE_EVENT_HISTORY,
+  RECEIVE_AUTHENTICATION,
+  RECEIVE_LOGOUT
 } from "./constants";
 
 const initialState = {
   loading: false,
-  rooms: {}
+  rooms: {},
+  sessionId: null
 };
 
 export default function(state = initialState, action) {
@@ -65,6 +68,15 @@ export default function(state = initialState, action) {
       );
       return newState;
     }
+
+    case RECEIVE_AUTHENTICATION:
+      const { sessionId } = action.data;
+      window.sessionId = sessionId;
+      return { ...state, sessionId };
+
+    case RECEIVE_LOGOUT:
+      window.sessionId = null;
+      return { ...state, sessionId: null };
 
     default:
       return state;

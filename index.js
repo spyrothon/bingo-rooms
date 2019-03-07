@@ -10,14 +10,14 @@ import {
 import bingoReducer from './src/reducers';
 import { store } from './src/store';
 
-import { App } from './src/app';
+import { ConnectedApp } from './src/app';
 
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector("#play-container");
   render(
     <Provider store={store}>
-      <App />
+      <ConnectedApp />
     </Provider>,
     container
   );

@@ -2,16 +2,18 @@ import {
   RECEIVE_ROOM,
   RECEIVE_ROOMS,
   RECEIVE_EVENTS,
-  RECEIVE_EVENT_HISTORY
+  RECEIVE_EVENT_HISTORY,
+  RECEIVE_AUTHENTICATION
 } from './constants';
 import { socket } from './store';
 
 const SERVER_HOST = "http://localhost:3000";
 
-const defaultHeaders = {
+const defaultHeaders = () => ({
   'Accept': 'application/json',
   'Content-Type': 'application/json',
-};
+  'X-BL-Session': window.sessionId
+});
 
 
 
@@ -19,10 +21,48 @@ const defaultHeaders = {
 // Action creators
 // //
 
+export function loginUser(username, password) {
+  return dispatch => {
+    fetch(`${SERVER_HOST}/api/sessions`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return dispatch(receiveAuthentication(response.data.session_id));
+    });
+  }
+}
+
+export function logoutUser() {
+  return dispatch => {
+    fetch(`${SERVER_HOST}/api/sessions/delete`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return dispatch(receiveLogout());
+    });
+  }
+}
+
 export function requestRoom(roomId) {
   return dispatch => {
     fetch(`${SERVER_HOST}/api/rooms/${roomId}`, {
-      headers: defaultHeaders,
+      headers: defaultHeaders(),
       credentials: 'same-origin',
       method: 'GET'
     })
@@ -37,7 +77,7 @@ export function requestRoom(roomId) {
 export function requestRooms() {
   return dispatch => {
     fetch(`${SERVER_HOST}/api/rooms`, {
-      headers: defaultHeaders,
+      headers: defaultHeaders(),
       credentials: 'same-origin',
       method: 'GET'
     })
@@ -68,6 +108,25 @@ export function unsubscribeFromRoomEvents(roomId) {
 // //
 // Actions
 // //
+
+export function receiveAuthentication(sessionId) {
+  return {
+    type: RECEIVE_AUTHENTICATION,
+    data: {
+      sessionId: sessionId
+    }
+  }
+}
+
+export function receiveLogout() {
+  return {
+    type: RECEIVE_LOGOUT,
+    data: {
+    }
+  }
+}
+
+
 
 export function receiveRoom(room) {
   return {
