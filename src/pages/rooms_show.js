@@ -6,7 +6,9 @@ import _ from 'lodash';
 import {
   requestRoom,
   subscribeToRoomEvents,
-  unsubscribeFromRoomEvents
+  unsubscribeFromRoomEvents,
+  markCell,
+  unmarkCell
 } from '../actions';
 
 import { Room } from '../components/room';
@@ -32,13 +34,15 @@ class RoomsShow extends Component {
   render() {
     const {
       loading,
-      room
+      room,
+      markCell,
+      unmarkCell
     } = this.props;
 
     if(loading || !room) return null;
 
     return (
-      <Room room={room} />
+      <Room room={room} markCell={markCell} unmarkCell={unmarkCell} />
     );
   }
 }
@@ -56,7 +60,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     ...bindActionCreators({
-      requestRoom
+      requestRoom,
+      markCell,
+      unmarkCell
     }, dispatch)
   };
 }

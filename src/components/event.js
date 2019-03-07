@@ -41,14 +41,14 @@ const displayForEvent = (event) => {
     case 'cell_marked': {
       const { player, team, cell_index, cell } = data;
       return <span>
-        <em>{player}</em> marked <em>{cell.goal.name}</em> for team <em>{team}</em>
+        <em>{cell.goal.name}</em> marked for team <em>{team}</em>
       </span>;
     }
 
     case 'cell_unmarked': {
       const { player, team, cell_index, cell } = data;
       return <span>
-        <em>{player}</em> unmarked <em>{cell.goal.name}</em> for team <em>{team}</em>
+        <em>{cell.goal.name}</em> marked for team <em>{team}</em>
       </span>;
     }
 
@@ -65,17 +65,22 @@ export const Event = (props) => {
   const {
     type,
     raw_data,
+    raw_meta,
     room_id,
     timestamp
   } = event;
 
   const data = JSON.parse(raw_data);
+  const meta = JSON.parse(raw_meta);
+  const { user } = meta;
+  const userName = user ? user.name : 'unknown';
 
   const formattedTime = DateTime.fromISO(event.timestamp).toLocaleString(DateTime.TIME_SIMPLE);
 
+
   return (
     <div class="event-log-event">
-      <span class="text-grey-dark font-mono">[{formattedTime}] </span>
+      <span class="text-grey-dark font-mono">[{formattedTime} - {userName}] </span>
       {displayForEvent(event)}
     </div>
   );

@@ -8,10 +8,13 @@ import { Teams } from './teams';
 
 export const Room = (props) => {
   const {
-    room
+    room,
+    markCell,
+    unmarkCell
   } = props;
 
   const {
+    room_id,
     name,
     teams,
     players,
@@ -27,7 +30,7 @@ export const Room = (props) => {
           <div class="section">
             <h1>{name} <small>created by {owner && owner.name}</small></h1>
 
-            <BingoBoard board={board} />
+            <BingoBoard board={board} roomId={room_id} markCell={markCell} unmarkCell={unmarkCell} />
           </div>
         </div>
 

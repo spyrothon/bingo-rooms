@@ -56,6 +56,20 @@ export function logoutUser() {
   }
 }
 
+export function subscribeToRoomEvents(roomId) {
+  socket.send({
+    command: "subscribe",
+    topic: roomId
+  })
+}
+
+export function unsubscribeFromRoomEvents(roomId) {
+  socket.send({
+    command: "unsubscribe",
+    topic: roomId
+  })
+}
+
 export function requestRoom(roomId) {
   return dispatch => {
     fetch(`${API_HOST}/rooms/${roomId}`, {
@@ -104,19 +118,44 @@ export function createRoom() {
   }
 }
 
-export function subscribeToRoomEvents(roomId) {
-  socket.send({
-    command: "subscribe",
-    topic: roomId
-  })
+export function markCell(roomId, cellIndex, team) {
+  return dispatch => {
+    fetch(`${API_HOST}/rooms/${roomId}/mark_cell`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({
+        cell_index: cellIndex,
+        team: team
+      })
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return true;
+    });
+  }
 }
 
-export function unsubscribeFromRoomEvents(roomId) {
-  socket.send({
-    command: "unsubscribe",
-    topic: roomId
-  })
+export function unmarkCell(roomId, cellIndex, team) {
+  return dispatch => {
+    fetch(`${API_HOST}/rooms/${roomId}/unmark_cell`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({
+        cell_index: cellIndex,
+        team: team
+      })
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return true;
+    });
+  }
 }
+
 
 
 

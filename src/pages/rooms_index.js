@@ -29,6 +29,7 @@ class RoomsIndex extends Component {
             <tr>
               <th>Room ID</th>
               <th>Name</th>
+              <th>Created By</th>
               <th>Participants</th>
               <th>Last Active</th>
             </tr>
@@ -36,10 +37,12 @@ class RoomsIndex extends Component {
 
           <tbody>
             { _.map(rooms, (room) => {
+                const { owner } = room;
                 return (
                   <tr>
                     <td>{room.room_id}</td>
                     <td><a href={`/r/${room.room_id}`}>{room.name}</a></td>
+                    <td>{owner && owner.name}</td>
                     <td>{room.players.length} Players / {room.teams.length} Teams</td>
                     <td>{room.last_updated}</td>
                   </tr>
