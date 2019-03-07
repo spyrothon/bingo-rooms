@@ -8,6 +8,9 @@ import {
   requestRooms
 } from '../actions';
 
+import { RoomForm } from '../components/room-form';
+
+
 class RoomsIndex extends Component {
   componentWillMount() {
     const { requestRooms } = this.props;
@@ -22,37 +25,43 @@ class RoomsIndex extends Component {
 
     return (
       <div class="container mx-auto">
-        <h1>Bingo Rooms</h1>
+        <div class="flex">
+          <div class="section">
+            <h1>Bingo Rooms</h1>
 
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Room ID</th>
-              <th>Name</th>
-              <th>Created By</th>
-              <th>Participants</th>
-              <th>Last Active</th>
-            </tr>
-          </thead>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Room ID</th>
+                  <th>Name</th>
+                  <th>Created By</th>
+                  <th>Participants</th>
+                  <th>Last Active</th>
+                </tr>
+              </thead>
 
-          <tbody>
-            { _.map(rooms, (room) => {
-                const { owner } = room;
-                return (
-                  <tr>
-                    <td>{room.room_id}</td>
-                    <td><a href={`/r/${room.room_id}`}>{room.name}</a></td>
-                    <td>{owner && owner.name}</td>
-                    <td>{room.players.length} Players / {room.teams.length} Teams</td>
-                    <td>{room.last_updated}</td>
-                  </tr>
-                );
-              })
-            }
-          </tbody>
-        </table>
+              <tbody>
+                { _.map(rooms, (room) => {
+                    const { owner } = room;
+                    return (
+                      <tr>
+                        <td>{room.room_id}</td>
+                        <td><a href={`/r/${room.room_id}`}>{room.name}</a></td>
+                        <td>{owner && owner.name}</td>
+                        <td>{room.players.length} Players / {room.teams.length} Teams</td>
+                        <td>{room.last_updated}</td>
+                      </tr>
+                    );
+                  })
+                }
+              </tbody>
+            </table>
+          </div>
 
-        <button onClick={createRoom}>Create a Room</button>
+          <div class="section flex-1">
+            <RoomForm onSubmit={createRoom} />
+          </div>
+        </div>
       </div>
     );
   }
