@@ -4,11 +4,15 @@ import Cookies from 'js-cookie';
 
 import { Actions } from "./constants";
 
+// Persist sessions across page refreshes via local cookies. These cookies are
+// _not_ sent to the API server, which is why `window.sessionId` gets set.
+const existingSession = Cookies.get('bl-session-id') || window.sessionId;
+window.sessionId = existingSession;
 
 const initialState = {
   loading: false,
   rooms: {},
-  sessionId: Cookies.get('bl-session-id') || null
+  sessionId: existingSession || null
 };
 
 export default function(state = initialState, action) {
@@ -84,6 +88,7 @@ export default function(state = initialState, action) {
 
     case Actions.RECEIVE_AUTHENTICATION:
       const { sessionId } = action.data;
+      window.sessionId = sessionId;
       Cookies.set('bl-session-id', sessionId);
       return {
         ...state,
