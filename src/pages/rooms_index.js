@@ -3,7 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'preact-redux';
 import _ from 'lodash';
 
-import { requestRooms } from '../actions';
+import {
+  createRoom,
+  requestRooms
+} from '../actions';
 
 class RoomsIndex extends Component {
   componentWillMount() {
@@ -12,7 +15,10 @@ class RoomsIndex extends Component {
   }
 
   render() {
-    const { rooms } = this.props;
+    const {
+      rooms,
+      createRoom
+    } = this.props;
 
     return (
       <div class="container mx-auto">
@@ -42,6 +48,8 @@ class RoomsIndex extends Component {
             }
           </tbody>
         </table>
+
+        <button onClick={createRoom}>Create a Room</button>
       </div>
     );
   }
@@ -59,7 +67,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     ...bindActionCreators({
-      requestRooms
+      requestRooms,
+      createRoom
     }, dispatch)
   };
 }

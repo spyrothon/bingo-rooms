@@ -1,16 +1,8 @@
 import _ from 'lodash';
 import dotProp from 'dot-prop-immutable';
 
-import {
-  REQUEST_ROOM,
-  RECEIVE_ROOM,
-  REQUEST_ROOMS,
-  RECEIVE_ROOMS,
-  RECEIVE_EVENTS,
-  RECEIVE_EVENT_HISTORY,
-  RECEIVE_AUTHENTICATION,
-  RECEIVE_LOGOUT
-} from "./constants";
+import { Actions } from "./constants";
+
 
 const initialState = {
   loading: false,
@@ -20,34 +12,38 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case REQUEST_ROOMS:
+    case Actions.REQUEST_ROOMS:
       return {
         ...state,
-        loading: true
+        loading: { ...state.loading, rooms: true }
       }
-    case RECEIVE_ROOMS:
+    case Actions.RECEIVE_ROOMS:
       const { rooms } = action.data;
       const newRooms = _.keyBy(rooms, 'room_id');
 
       return {
         ...state,
-        loading: false,
+        loading: { ...state.loading, rooms: false },
         rooms: {
           ...state.rooms,
           ...newRooms
         }
       };
 
-    case REQUEST_ROOM:
+    case Actions.REQUEST_ROOM:
       return {
         ...state,
-        loading: true
+        loading: { ...state.loading, room: true }
       }
-    case RECEIVE_ROOM:
+    case Actions.RECEIVE_ROOM:
       const { room } = action.data;
-      return dotProp.merge(state, `rooms.${room.room_id}`, room);
+      const newRoomState = dotProp.merge(state, `rooms.${room.room_id}`, room);
+      return {
+        ...newRoomState,
+        loading: { ...state.loading, room: false }
+      }
 
-    case RECEIVE_EVENTS: {
+    case Actions.RECEIVE_EVENTS: {
       const { room_id, events } = action.data;
       return dotProp.set(
         state,
@@ -59,7 +55,14 @@ export default function(state = initialState, action) {
       );
     }
 
-    case RECEIVE_EVENT_HISTORY: {
+    case Actions.ROOM_CREATED: {
+      const { room } = action.data;
+      return {
+        ...state
+      }
+    }
+
+    case Actions.RECEIVE_EVENT_HISTORY: {
       const { room_id, events } = action.data;
       const newState = dotProp.set(
         state,
@@ -69,12 +72,25 @@ export default function(state = initialState, action) {
       return newState;
     }
 
-    case RECEIVE_AUTHENTICATION:
+    case Actions.REQUEST_AUTHENTICATION:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          auth: true
+        }
+      };
+
+    case Actions.RECEIVE_AUTHENTICATION:
       const { sessionId } = action.data;
       window.sessionId = sessionId;
-      return { ...state, sessionId };
+      return {
+        ...state,
+        loading: { ...state.loading, auth: false },
+        sessionId
+      };
 
-    case RECEIVE_LOGOUT:
+    case Actions.RECEIVE_LOGOUT:
       window.sessionId = null;
       return { ...state, sessionId: null };
 

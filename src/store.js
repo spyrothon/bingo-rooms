@@ -6,7 +6,7 @@ import bingoReducer from './reducers';
 
 import { RoomSocket } from './room-socket';
 
-const SOCKET_HOST = "ws://localhost:3000/api/socket";
+const SOCKET_HOST = "ws://localhost:3000/api/play/socket";
 
 // Create basic store which can be extended with `addStore`
 export const store = createStore(bingoReducer, applyMiddleware(thunk));

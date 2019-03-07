@@ -1,13 +1,9 @@
-import {
-  RECEIVE_ROOM,
-  RECEIVE_ROOMS,
-  RECEIVE_EVENTS,
-  RECEIVE_EVENT_HISTORY,
-  RECEIVE_AUTHENTICATION
-} from './constants';
+import { route } from 'preact-router';
+
+import { Actions } from './constants';
 import { socket } from './store';
 
-const SERVER_HOST = "http://localhost:3000";
+const API_HOST = "http://localhost:3000/api/play";
 
 const defaultHeaders = () => ({
   'Accept': 'application/json',
@@ -23,7 +19,8 @@ const defaultHeaders = () => ({
 
 export function loginUser(username, password) {
   return dispatch => {
-    fetch(`${SERVER_HOST}/api/sessions`, {
+    dispatch(requestAuthentication());
+    fetch(`${API_HOST}/sessions`, {
       headers: defaultHeaders(),
       credentials: 'same-origin',
       method: 'POST',
@@ -35,14 +32,14 @@ export function loginUser(username, password) {
     .then(checkStatus)
     .then(parseJSON)
     .then((response) => {
-      return dispatch(receiveAuthentication(response.data.session_id));
+      return dispatch(receiveAuthentication(response.data.session_id, response.data.user));
     });
   }
 }
 
 export function logoutUser() {
   return dispatch => {
-    fetch(`${SERVER_HOST}/api/sessions/delete`, {
+    fetch(`${API_HOST}/sessions/delete`, {
       headers: defaultHeaders(),
       credentials: 'same-origin',
       method: 'POST',
@@ -61,7 +58,7 @@ export function logoutUser() {
 
 export function requestRoom(roomId) {
   return dispatch => {
-    fetch(`${SERVER_HOST}/api/rooms/${roomId}`, {
+    fetch(`${API_HOST}/rooms/${roomId}`, {
       headers: defaultHeaders(),
       credentials: 'same-origin',
       method: 'GET'
@@ -76,7 +73,7 @@ export function requestRoom(roomId) {
 
 export function requestRooms() {
   return dispatch => {
-    fetch(`${SERVER_HOST}/api/rooms`, {
+    fetch(`${API_HOST}/rooms`, {
       headers: defaultHeaders(),
       credentials: 'same-origin',
       method: 'GET'
@@ -85,6 +82,24 @@ export function requestRooms() {
     .then(parseJSON)
     .then((response) => {
       return dispatch(receiveRooms(response.data.rooms));
+    });
+  }
+}
+
+export function createRoom() {
+  return dispatch => {
+    fetch(`${API_HOST}/rooms`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST'
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      const { room } = response.data;
+      dispatch(roomCreated(room));
+      route(`/r/${room.room_id}`);
+      return true;
     });
   }
 }
@@ -109,20 +124,27 @@ export function unsubscribeFromRoomEvents(roomId) {
 // Actions
 // //
 
-export function receiveAuthentication(sessionId) {
+export function requestAuthentication() {
   return {
-    type: RECEIVE_AUTHENTICATION,
+    type: Actions.REQUEST_AUTHENTICATION,
+    data: {}
+  }
+}
+
+export function receiveAuthentication(sessionId, user) {
+  return {
+    type: Actions.RECEIVE_AUTHENTICATION,
     data: {
-      sessionId: sessionId
+      sessionId: sessionId,
+      user: user
     }
   }
 }
 
 export function receiveLogout() {
   return {
-    type: RECEIVE_LOGOUT,
-    data: {
-    }
+    type: Actions.RECEIVE_LOGOUT,
+    data: {}
   }
 }
 
@@ -130,7 +152,7 @@ export function receiveLogout() {
 
 export function receiveRoom(room) {
   return {
-    type: RECEIVE_ROOM,
+    type: Actions.RECEIVE_ROOM,
     data: {
       room: room
     }
@@ -139,16 +161,25 @@ export function receiveRoom(room) {
 
 export function receiveRooms(rooms) {
   return {
-    type: RECEIVE_ROOMS,
+    type: Actions.RECEIVE_ROOMS,
     data: {
       rooms: rooms
     }
   }
 }
 
+export function roomCreated(room) {
+  return {
+    type: Actions.ROOM_CREATED,
+    data: {
+      room: room
+    }
+  }
+}
+
 export function receiveEventHistory(room_id, events) {
   return {
-    type: RECEIVE_EVENT_HISTORY,
+    type: Actions.RECEIVE_EVENT_HISTORY,
     data: {
       room_id: room_id,
       events: events
@@ -158,7 +189,7 @@ export function receiveEventHistory(room_id, events) {
 
 export function receiveEvents(room_id, events) {
   return {
-    type: RECEIVE_EVENTS,
+    type: Actions.RECEIVE_EVENTS,
     data: {
       room_id: room_id,
       events: events

@@ -20,22 +20,24 @@ class Login extends Component {
   }
 
   render() {
-    const { user } = this.props;
-    const { username, password } = this.state;
+    const { user, loading } = this.props;
 
     return (
       <div class="container mx-auto">
         <h1>Login</h1>
-        <form onSubmit={this.doLogin.bind(this)}>
-          <div class="my-2">
-            <input type="text" name="username" />
-          </div>
-          <div class="my-2">
-            <input type="password" name="password" />
-          </div>
 
-          <input type="submit" />
-        </form>
+        { loading
+          ? <h3>Loading</h3>
+          : <form onSubmit={this.doLogin.bind(this)}>
+              <div class="my-2">
+                <input type="text" name="username" />
+              </div>
+              <div class="my-2">
+                <input type="password" name="password" />
+              </div>
+              <input type="submit" />
+            </form>
+        }
       </div>
     );
   }
@@ -45,7 +47,8 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    loading: state.loading.auth
   };
 };
 

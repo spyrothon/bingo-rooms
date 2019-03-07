@@ -16,7 +16,8 @@ export const Room = (props) => {
     teams,
     players,
     board,
-    events
+    events,
+    owner
   } = room;
 
   return (
@@ -24,7 +25,7 @@ export const Room = (props) => {
       <div class="flex">
         <div class="flex-1">
           <div class="section">
-            <h1>{name}</h1>
+            <h1>{name} <small>created by {owner && owner.name}</small></h1>
 
             <BingoBoard board={board} />
           </div>
