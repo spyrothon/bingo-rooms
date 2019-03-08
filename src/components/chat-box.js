@@ -25,7 +25,7 @@ export class ChatBox extends Component {
         <div class="chat-box">
           <textarea
             id="message-input"
-            class="bg-black text-white w-full px-2 py-1 mt-2 rounded block"
+            class="bg-black text-white w-full p-2 mt-2 rounded block"
             onKeyDown={this.submitOnEnter.bind(this)}
             placeholder="Send a message or command"
           ></textarea>

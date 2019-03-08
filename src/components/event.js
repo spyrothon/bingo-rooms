@@ -87,10 +87,10 @@ export const Event = (props) => {
 
   return (
     <div class="event-log-event my-2">
-      <div class="text-grey-dark font-mono">
+      <div class="text-grey-dark">
         {userName} <small>- {formattedTime}</small>
       </div>
-      <div class="ml-4">{displayForEvent(event)}</div>
+      <div class="ml-4 mt-1">{displayForEvent(event)}</div>
     </div>
   );
 }

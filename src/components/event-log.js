@@ -20,7 +20,6 @@ export class EventLog extends Component {
 
   scrollToBottom() {
     const container = this.containerElement;
-    console.log(container.scrollTop, container.scrollHeight);
     if(container) {
       container.scrollTop = container.scrollHeight;
     }

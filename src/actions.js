@@ -2,6 +2,7 @@ import { route } from 'preact-router';
 
 import { Actions } from './constants';
 import { socket } from './store';
+import { interpretAndDispatchMessage } from './message-command-interpreter';
 
 const API_HOST = "http://localhost:3000/api/play";
 
@@ -190,6 +191,12 @@ export function sendChatMessage(roomId, content) {
     .then((response) => {
       return true;
     });
+  }
+}
+
+export function parseAndDispatchMessage(roomId, content) {
+  return dispatch => {
+    return interpretAndDispatchMessage(dispatch, roomId, content);
   }
 }
 
