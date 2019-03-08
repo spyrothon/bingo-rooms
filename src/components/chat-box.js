@@ -11,9 +11,11 @@ export class ChatBox extends Component {
 
     if(key == "Enter" && !shiftKey) {
       ev.preventDefault();
-      sendMessage(message);
-      target.value = "";
-      return
+      if(message.trim() != "") {
+        sendMessage(message);
+        target.value = "";
+        return;
+      }
     }
   }
 
