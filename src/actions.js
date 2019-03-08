@@ -157,7 +157,7 @@ export function unmarkCell(roomId, cellIndex, team) {
   }
 }
 
-export function addTeam(name, color) {
+export function addTeam(roomId, name, color) {
   return dispatch => {
     fetch(`${API_HOST}/rooms/${roomId}/add_team`, {
       headers: defaultHeaders(),

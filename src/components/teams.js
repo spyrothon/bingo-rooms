@@ -11,7 +11,7 @@ export const Teams = (props) => {
     <div class="teams">
       <p>{teams.length} Teams</p>
       <ul>
-        { _.map(teams, (team) => <li>{team}</li>)}
+        { _.map(teams, (team) => <li style={{color: team.color}}>{team.name}</li>)}
       </ul>
     </div>
   );

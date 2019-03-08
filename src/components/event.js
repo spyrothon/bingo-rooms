@@ -19,13 +19,13 @@ const displayForEvent = (event) => {
     }
 
     case 'team_added': {
-      const { team } = data;
-      return <span>Team Added - <small>Name: {team}</small></span>;
+      const { name } = data;
+      return <span>Team Added - <small>Name: {name}</small></span>;
     }
 
     case 'team_removed': {
-      const { team } = data;
-      return <span>Team Removed - <small>Name: {team}</small></span>;
+      const { name } = data;
+      return <span>Team Removed - <small>Name: {name}</small></span>;
     }
 
     case 'player_added': {

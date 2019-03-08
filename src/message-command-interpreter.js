@@ -15,10 +15,19 @@ function parseCommand(message) {
 
 const COMMANDS = {
   markcell: (roomId, dispatch, cellIndex, team) => {
-    return dispatch(Actions.markCell(roomId, parseInt(cellIndex), team));
+    if(cellIndex && team) {
+      return dispatch(Actions.markCell(roomId, parseInt(cellIndex), team));
+    }
   },
   unmarkcell: (roomId, dispatch, cellIndex, team) => {
-    return dispatch(Actions.unmarkCell(roomId, parseInt(cellIndex), team));
+    if(cellIndex && team) {
+      return dispatch(Actions.unmarkCell(roomId, parseInt(cellIndex), team));
+    }
+  },
+  addteam: (roomId, dispatch, name, color) => {
+    if(name) {
+      return dispatch(Actions.addTeam(roomId, name, color || 'white'));
+    }
   }
 }
 
@@ -30,7 +39,6 @@ export function interpretAndDispatchMessage(dispatch, roomId, message) {
   }
 
   const {command, args} = parseCommand(message);
-  console.log(command, args)
 
   try {
     if(COMMANDS.hasOwnProperty(command)) {
