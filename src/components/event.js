@@ -52,6 +52,13 @@ const displayForEvent = (event) => {
       </span>;
     }
 
+    case 'chat_message_sent': {
+      const { content } = data;
+      return <span>
+        {content}
+      </span>;
+    }
+
     default:
       return <span>{type}</span>;
   }

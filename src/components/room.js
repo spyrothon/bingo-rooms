@@ -3,6 +3,7 @@ import { connect } from 'preact-redux';
 import _ from 'lodash';
 
 import { BingoBoard } from './bingo-board';
+import { ChatBox } from './chat-box';
 import { EventLog } from './event-log';
 import { Teams } from './teams';
 
@@ -10,7 +11,8 @@ export const Room = (props) => {
   const {
     room,
     markCell,
-    unmarkCell
+    unmarkCell,
+    sendChatMessage
   } = props;
 
   const {
@@ -46,9 +48,11 @@ export const Room = (props) => {
           </div>
 
           <div class="section">
-            <h2>Events</h2>
+            <h2>Log</h2>
 
             <EventLog events={events} />
+
+            <ChatBox sendMessage={(content) => sendChatMessage(room_id, content)} />
           </div>
         </div>
       </div>

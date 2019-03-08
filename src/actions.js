@@ -156,6 +156,42 @@ export function unmarkCell(roomId, cellIndex, team) {
   }
 }
 
+export function addTeam(name, color) {
+  return dispatch => {
+    fetch(`${API_HOST}/rooms/${roomId}/add_team`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({
+        name: name,
+        color: color
+      })
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return true;
+    });
+  }
+}
+
+export function sendChatMessage(roomId, content) {
+  return dispatch => {
+    fetch(`${API_HOST}/rooms/${roomId}/send_chat_message`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({
+        content: content
+      })
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return true;
+    });
+  }
+}
 
 
 
