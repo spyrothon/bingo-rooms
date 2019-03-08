@@ -2,7 +2,7 @@ import { route } from 'preact-router';
 
 import { Actions } from './constants';
 import { socket } from './store';
-import { interpretAndDispatchMessage } from './message-command-interpreter';
+import { interpretAndDispatchMessage } from './command-interpreter';
 
 const API_HOST = "http://localhost:3000/api/play";
 
