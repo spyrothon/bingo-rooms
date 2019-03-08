@@ -86,9 +86,11 @@ export const Event = (props) => {
 
 
   return (
-    <div class="event-log-event">
-      <span class="text-grey-dark font-mono">[{formattedTime} - {userName}] </span>
-      {displayForEvent(event)}
+    <div class="event-log-event my-2">
+      <div class="text-grey-dark font-mono">
+        {userName} <small>- {formattedTime}</small>
+      </div>
+      <div class="ml-4">{displayForEvent(event)}</div>
     </div>
   );
 }
