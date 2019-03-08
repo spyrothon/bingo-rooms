@@ -1,25 +1,8 @@
 import * as Actions from './actions';
-
-const COMMANDS = {
-  markcell: (roomId, dispatch, cellIndex, team) => {
-    if(cellIndex && team) {
-      return dispatch(Actions.markCell(roomId, parseInt(cellIndex), team));
-    }
-  },
-  unmarkcell: (roomId, dispatch, cellIndex, team) => {
-    if(cellIndex && team) {
-      return dispatch(Actions.unmarkCell(roomId, parseInt(cellIndex), team));
-    }
-  },
-  addteam: (roomId, dispatch, name, color) => {
-    if(name) {
-      return dispatch(Actions.addTeam(roomId, name, color || 'white'));
-    }
-  }
-}
+import { Commands } from './chat-commands';
 
 export function matchingCommands(leader) {
-  const commands = Object.keys(COMMANDS);
+  const commands = Object.keys(Commands);
 
   return commands.filter((command) => command.startsWith(leader));
 }
@@ -34,8 +17,9 @@ export function interpretAndDispatchMessage(dispatch, roomId, message) {
   const {command, args} = parseCommand(message);
 
   try {
-    if(COMMANDS.hasOwnProperty(command)) {
-      COMMANDS[command].apply(null, [roomId, dispatch, ...args]);
+    if(Commands.hasOwnProperty(command)) {
+      const inst = new Commands[command](roomId, dispatch);
+      inst.call(args);
     }
   } catch(error) {
     console.info("Could not apply command", error);
