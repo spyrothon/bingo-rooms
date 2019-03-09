@@ -11,8 +11,7 @@ export const Room = (props) => {
   const {
     room,
     user,
-    markCell,
-    unmarkCell
+    toggleCell
   } = props;
 
   const {
@@ -29,11 +28,11 @@ export const Room = (props) => {
       <div class="flex">
         <div class="flex-1">
           <div class="section">
-            <div class="mb-8">
+            <div class="mb-2">
               <h1>{name} <small>created by {owner && owner.name}</small></h1>
             </div>
 
-            <BingoBoard board={board} roomId={room_id} markCell={markCell} unmarkCell={unmarkCell} />
+            <BingoBoard board={board} room={room} toggleCell={toggleCell} />
           </div>
         </div>
 

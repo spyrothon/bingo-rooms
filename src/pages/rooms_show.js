@@ -7,8 +7,7 @@ import {
   requestRoom,
   subscribeToRoomEvents,
   unsubscribeFromRoomEvents,
-  markCell,
-  unmarkCell
+  toggleCell
 } from '../actions';
 
 import { Room } from '../components/room';
@@ -35,8 +34,7 @@ class RoomsShow extends Component {
     const {
       loading,
       room,
-      markCell,
-      unmarkCell
+      toggleCell
     } = this.props;
 
     if(loading || !room) return null;
@@ -44,8 +42,7 @@ class RoomsShow extends Component {
     return (
       <Room
         room={room}
-        markCell={markCell}
-        unmarkCell={unmarkCell}
+        toggleCell={toggleCell}
       />
     );
   }
@@ -65,8 +62,7 @@ const mapDispatchToProps = (dispatch) => {
     dispatch,
     ...bindActionCreators({
       requestRoom,
-      markCell,
-      unmarkCell
+      toggleCell
     }, dispatch)
   };
 }

@@ -34,7 +34,7 @@ class RoomsIndex extends Component {
                 <tr>
                   <th>Name</th>
                   <th>Created By</th>
-                  <th>Participants</th>
+                  <th>Players</th>
                   <th>Last Active</th>
                 </tr>
               </thead>
@@ -46,7 +46,7 @@ class RoomsIndex extends Component {
                       <tr>
                         <td><a href={`/r/${room.room_id}`}>{room.name}</a></td>
                         <td>{owner && owner.name}</td>
-                        <td>{room.players.length} Players / {room.teams.length} Teams</td>
+                        <td>{room.players.length} Players</td>
                         <td>{room.last_updated}</td>
                       </tr>
                     );

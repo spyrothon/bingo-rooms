@@ -119,15 +119,14 @@ export function createRoom() {
   }
 }
 
-export function markCell(roomId, cellIndex, team) {
+export function markCell(roomId, cellIndex) {
   return dispatch => {
     fetch(`${API_HOST}/rooms/${roomId}/mark_cell`, {
       headers: defaultHeaders(),
       credentials: 'same-origin',
       method: 'POST',
       body: JSON.stringify({
-        cell_index: cellIndex,
-        team: team
+        cell_index: cellIndex
       })
     })
     .then(checkStatus)
@@ -138,15 +137,32 @@ export function markCell(roomId, cellIndex, team) {
   }
 }
 
-export function unmarkCell(roomId, cellIndex, team) {
+export function toggleCell(roomId, cellIndex) {
+  return dispatch => {
+    fetch(`${API_HOST}/rooms/${roomId}/toggle_cell`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({
+        cell_index: cellIndex
+      })
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return true;
+    });
+  }
+}
+
+export function unmarkCell(roomId, cellIndex) {
   return dispatch => {
     fetch(`${API_HOST}/rooms/${roomId}/unmark_cell`, {
       headers: defaultHeaders(),
       credentials: 'same-origin',
       method: 'POST',
       body: JSON.stringify({
-        cell_index: cellIndex,
-        team: team
+        cell_index: cellIndex
       })
     })
     .then(checkStatus)

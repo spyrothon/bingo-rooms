@@ -6,10 +6,10 @@ import { SetNicknameCommand } from './chat-commands/set-nickname';
 import { SetColorCommand } from './chat-commands/set-color';
 
 export const Commands = {
-  markcell: MarkCellCommand,
-  unmarkcell: UnmarkCellCommand,
-  join: JoinRoomCommand,
-  leave: LeaveRoomCommand,
-  nick: SetNicknameCommand,
-  color: SetColorCommand
+  mark:   MarkCellCommand,
+  unmark: UnmarkCellCommand,
+  join:   JoinRoomCommand,
+  leave:  LeaveRoomCommand,
+  nick:   SetNicknameCommand,
+  color:  SetColorCommand
 }

@@ -2,9 +2,9 @@ import { unmarkCell } from '../actions';
 
 export class UnmarkCellCommand {
   static get hint() { return {
-    name: "unmarkcell",
-    grammar: "/unmarkcell/index",
-    description: "Unmark a cell on the board for your team"
+    name: "unmark",
+    grammar: "/unmark/index",
+    description: "Unmark a cell on the board"
   } };
 
   constructor(roomId, dispatch) {
@@ -12,10 +12,10 @@ export class UnmarkCellCommand {
     this.dispatch = dispatch;
   }
 
-  call([cellIndexString, team]) {
+  call([cellIndexString]) {
     const { dispatch, roomId } = this;
     const cellIndex = parseInt(cellIndexString);
 
-    return dispatch(unmarkCell(roomId, cellIndex, team));
+    return dispatch(unmarkCell(roomId, cellIndex));
   }
 }

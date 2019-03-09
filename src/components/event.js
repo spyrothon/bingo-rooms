@@ -42,18 +42,17 @@ const displayForEvent = (event, room) => {
       return <span><strong>{user.name}</strong> changed their color to <strong style={{color: color}}>{color}</strong></span>;
     }
 
-
     case 'cell_marked': {
-      const { player, team, cell_index, cell } = data;
+      const { player, cell_index, cell } = data;
       return <span>
-        <em>{cell.goal.name}</em> marked for team <em>{team}</em>
+        marked <em>{cell.goal.name}</em>
       </span>;
     }
 
     case 'cell_unmarked': {
-      const { player, team, cell_index, cell } = data;
+      const { player, cell_index, cell } = data;
       return <span>
-        <em>{cell.goal.name}</em> marked for team <em>{team}</em>
+        unmarked <em>{cell.goal.name}</em>
       </span>;
     }
 

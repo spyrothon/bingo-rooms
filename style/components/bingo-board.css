@@ -20,6 +20,7 @@
     margin: 0;
     overflow: hidden;
     text-align: center;
+    text-shadow: 0px 0px 2px var(--black), 0px 0px 12px var(--black);
     background-color: var(--black);
     line-height: 1.3em;
 

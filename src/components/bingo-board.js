@@ -3,36 +3,65 @@ import { connect } from 'preact-redux';
 import _ from 'lodash';
 
 export class BingoBoard extends Component {
-  toggleCell(cellIndex, ev) {
-    const { board, roomId, markCell, unmarkCell } = this.props;
-    const cell = board.cells[cellIndex];
-    const markedBy = cell.marked_by;
+  onCellClick(cellIndex, playerId, ev) {
+    const { board, room, toggleCell } = this.props;
+    const roomId = room.room_id;
 
-    if(markedBy.includes("The Team")) {
-      unmarkCell(roomId, cellIndex, "The Team");
-    } else {
-      markCell(roomId, cellIndex, "The Team");
+    toggleCell(roomId, cellIndex);
+  }
+
+  styleForCell(cell, room) {
+    const { players } = room;
+    const colors = _.chain(cell.marked_by)
+        .map((pId) => players[pId].color)
+        .value();
+
+    switch(colors.length) {
+      case 0: return {};
+      case 1: return {background: colors[0]};
+      default:
+        const stopLength = 100/colors.length;
+        const stopVariability = 1;
+        const stops =
+          _.reduce(colors, (acc, color) => {
+            const startPercent = acc.lastLocation;
+            const stopPercent = acc.lastLocation + stopLength - stopVariability;
+            const newEntry = `${color} ${startPercent}% ${stopPercent}%`;
+            return {
+              ...acc,
+              entries: [...acc.entries, newEntry],
+              lastLocation: stopPercent + stopVariability
+            };
+          }, {entries: [], lastLocation: 0});
+        return {
+          background: `linear-gradient(-42deg, ${stops.entries.join(',')})`
+        };
     }
   }
 
   render() {
     const {
       board,
-      roomId,
-      markCell,
-      unmarkCell
+      playerId,
+      room,
+      toggleCell
     } = this.props;
-
     const { cells } = board;
+    const { players } = room;
+    const player = players[playerId];
+
 
     return (
       <div class="bingo-board">
-        { _.map(cells, (cell, idx) => (
-            <span class="bingo-cell" onClick={this.toggleCell.bind(this, idx)}>
+        { _.map(cells, (cell, idx) => {
+            return <span
+                class="bingo-cell"
+                style={this.styleForCell(cell, room)}
+                onClick={this.onCellClick.bind(this, idx, playerId)}
+              >
               <span>{cell.goal.name}</span>
-              <small>{cell.marked_by.join(', ')}</small>
-            </span>
-          ))
+            </span>;
+          })
         }
       </div>
     );
