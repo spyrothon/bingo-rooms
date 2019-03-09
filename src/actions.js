@@ -157,43 +157,6 @@ export function unmarkCell(roomId, cellIndex, team) {
   }
 }
 
-export function addTeam(roomId, name, color) {
-  return dispatch => {
-    fetch(`${API_HOST}/rooms/${roomId}/add_team`, {
-      headers: defaultHeaders(),
-      credentials: 'same-origin',
-      method: 'POST',
-      body: JSON.stringify({
-        name: name,
-        color: color
-      })
-    })
-    .then(checkStatus)
-    .then(parseJSON)
-    .then((response) => {
-      return true;
-    });
-  }
-}
-
-export function removeTeam(roomId, name) {
-  return dispatch => {
-    fetch(`${API_HOST}/rooms/${roomId}/remove_team`, {
-      headers: defaultHeaders(),
-      credentials: 'same-origin',
-      method: 'POST',
-      body: JSON.stringify({
-        name: name
-      })
-    })
-    .then(checkStatus)
-    .then(parseJSON)
-    .then((response) => {
-      return true;
-    });
-  }
-}
-
 export function sendChatMessage(roomId, content) {
   return dispatch => {
     fetch(`${API_HOST}/rooms/${roomId}/send_chat_message`, {
@@ -212,14 +175,67 @@ export function sendChatMessage(roomId, content) {
   }
 }
 
-export function joinTeam(roomId, team) {
+export function joinRoom(roomId, nickname, color) {
   return dispatch => {
-    fetch(`${API_HOST}/rooms/${roomId}/join_team`, {
+    fetch(`${API_HOST}/rooms/${roomId}/join`, {
       headers: defaultHeaders(),
       credentials: 'same-origin',
       method: 'POST',
       body: JSON.stringify({
-        team: team
+        nickname: nickname,
+        color: color
+      })
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return true;
+    });
+  }
+}
+
+export function leaveRoom(roomId) {
+  return dispatch => {
+    fetch(`${API_HOST}/rooms/${roomId}/leave`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({})
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return true;
+    });
+  }
+}
+
+export function setNickname(roomId, nickname) {
+  return dispatch => {
+    fetch(`${API_HOST}/rooms/${roomId}/set_nickname`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({
+        nickname: nickname
+      })
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return true;
+    });
+  }
+}
+
+export function setColor(roomId, color) {
+  return dispatch => {
+    fetch(`${API_HOST}/rooms/${roomId}/set_color`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({
+        color: color
       })
     })
     .then(checkStatus)

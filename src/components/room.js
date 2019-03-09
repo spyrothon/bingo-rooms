@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { SmartChatBox } from '../containers/smart-chat-box';
 import { BingoBoard } from './bingo-board';
 import { EventLog } from './event-log';
-import { Teams } from './teams';
+import { Players } from './players';
 
 export const Room = (props) => {
   const {
@@ -18,7 +18,6 @@ export const Room = (props) => {
   const {
     room_id,
     name,
-    teams,
     players,
     board,
     events,
@@ -40,13 +39,8 @@ export const Room = (props) => {
 
         <div class="flex-1">
           <div class="section">
-            <h2>Teams</h2>
-            <Teams teams={teams} />
-
-            <p>{players.length} Players</p>
-            <ul>
-              { _.map(players, (player) => <li>{player}</li>)}
-            </ul>
+            <h2>Players</h2>
+            <Players players={players} />
           </div>
 
           <div class="section">
