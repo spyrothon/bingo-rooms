@@ -35,17 +35,21 @@ const displayForEvent = (event, room) => {
     }
 
     case 'player_team_joined': {
-      const { player_id, team } = data;
+      const { player_id, team: teamName } = data;
       const player = room.players[player_id];
-      return <span><strong>{player.name}</strong> joined team <strong>{team}</strong></span>;
+      const team = room.teams.find((team) => team.name == teamName);
+      return <span><strong>{player.name}</strong> joined team <strong style={{color: team.color}}>{team}</strong></span>;
     }
 
     case 'player_team_changed': {
-      const { player_id, old_team, team } = data;
+      const { player_id, old_team: oldTeamName, team: teamName } = data;
       const player = room.players[player_id];
+      const oldTeam = room.teams.find((team) => team.name == oldTeamName);
+      const team = room.teams.find((team) => team.name == teamName);
       return <span>
         <strong>{player.name}</strong> changed teams from
-        <strong> {old_team}</strong> to <strong>{team}</strong>
+        <strong style={{color: oldTeam.color}}> {oldTeamName}</strong> to
+        <strong style={{color: team.color}}> {teamName}</strong>
       </span>;
     }
 
