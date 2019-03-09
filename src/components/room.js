@@ -28,7 +28,7 @@ export const Room = (props) => {
       <div class="flex">
         <div class="flex-1">
           <div class="section">
-            <div class="mb-2">
+            <div class="mb-4">
               <h1>{name} <small>created by {owner && owner.name}</small></h1>
             </div>
 

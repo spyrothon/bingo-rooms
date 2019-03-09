@@ -8,6 +8,7 @@ import { matchingCommands } from '../command-interpreter';
 export class ChatBox extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       message: "",
       canSend: false,
@@ -53,27 +54,37 @@ export class ChatBox extends Component {
 
   render() {
     const { message, canSend, isCommand, commandHints } = this.state;
+    const limitedCommands = commandHints.slice(0, 5);
 
     return (
       <div class="chat">
         <div class="chat-box">
           <textarea
             id="message-input"
-            class="bg-black text-white w-full p-2 mt-2 rounded block"
+            class="input bg-black text-white w-full block"
+            rows={2}
             onKeyDown={this.maybeSendMessage.bind(this)}
             onInput={this.handleMessageChange.bind(this)}
             placeholder="Send a message or type `/` to start a command"
             value={message}
           ></textarea>
-        </div>
-        <div class="chat-command-hints">
           { isCommand &&
-            _.map(commandHints, ({name, grammar, description}) => {
-              return <div class="py-1">
-                <div><strong>{name}</strong> - <em>{grammar}</em></div>
-                <div class="ml-4">{description}</div>
-              </div>;
-            })
+            <div class="chat-command-hints">
+              { limitedCommands.length > 0
+                ? _.map(limitedCommands, ({name, grammar, description}) => {
+                    return <div class="chat-command-hint">
+                      <div><strong>{name}</strong> - <em>{grammar}</em></div>
+                      <div class="ml-4">{description}</div>
+                    </div>;
+                  })
+                : <div class="chat-command-hint">
+                    <span>No commands match {message}</span>
+                  </div>
+              }
+              <div class="chat-command-tutorial">
+                Type out a command and press Enter to send it.
+              </div>
+            </div>
           }
         </div>
       </div>
