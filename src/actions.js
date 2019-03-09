@@ -176,6 +176,24 @@ export function addTeam(roomId, name, color) {
   }
 }
 
+export function removeTeam(roomId, name) {
+  return dispatch => {
+    fetch(`${API_HOST}/rooms/${roomId}/remove_team`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({
+        name: name
+      })
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return true;
+    });
+  }
+}
+
 export function sendChatMessage(roomId, content) {
   return dispatch => {
     fetch(`${API_HOST}/rooms/${roomId}/send_chat_message`, {
@@ -184,6 +202,24 @@ export function sendChatMessage(roomId, content) {
       method: 'POST',
       body: JSON.stringify({
         content: content
+      })
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return true;
+    });
+  }
+}
+
+export function joinTeam(roomId, team) {
+  return dispatch => {
+    fetch(`${API_HOST}/rooms/${roomId}/join_team`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({
+        team: team
       })
     })
     .then(checkStatus)

@@ -12,7 +12,8 @@ window.sessionId = existingSession;
 const initialState = {
   loading: false,
   rooms: {},
-  sessionId: existingSession || null
+  sessionId: existingSession || null,
+  user: null
 };
 
 export default function(state = initialState, action) {

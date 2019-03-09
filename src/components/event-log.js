@@ -27,12 +27,13 @@ export class EventLog extends Component {
 
   render() {
     const {
-      events
+      events,
+      room
     } = this.props;
 
     return (
       <div class="event-log" ref={(el) => this.containerElement = el}>
-        { _.map(events, (event) => <Event event={event} />) }
+        { _.map(events, (event) => <Event event={event} room={room} />) }
       </div>
     );
   }

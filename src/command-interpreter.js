@@ -1,10 +1,15 @@
+import _ from 'lodash';
 import * as Actions from './actions';
 import { Commands } from './chat-commands';
 
 export function matchingCommands(leader) {
-  const commands = Object.keys(Commands);
+  const commands = Object(Commands);
 
-  return commands.filter((command) => command.startsWith(leader));
+  return _.chain(commands)
+      .filter((command, trigger) => trigger.startsWith(leader))
+      .values()
+      .map('hint')
+      .value();
 }
 
 

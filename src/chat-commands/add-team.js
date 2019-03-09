@@ -1,6 +1,12 @@
 import { addTeam } from '../actions';
 
 export class AddTeamCommand {
+  static get hint() { return {
+    name: "addteam",
+    grammar: "/addteam/team_name[/color]",
+    description: "Add a team to the room"
+  } };
+
   constructor(roomId, dispatch) {
     this.roomId = roomId;
     this.dispatch = dispatch;

@@ -10,6 +10,7 @@ import { Teams } from './teams';
 export const Room = (props) => {
   const {
     room,
+    user,
     markCell,
     unmarkCell
   } = props;
@@ -51,9 +52,9 @@ export const Room = (props) => {
           <div class="section">
             <h2>Log</h2>
 
-            <EventLog events={events} />
+            <EventLog events={events} room={room} />
 
-            <SmartChatBox roomId={room_id} />
+            <SmartChatBox roomId={room_id} user={user} />
           </div>
         </div>
       </div>

@@ -20,7 +20,7 @@ export class ChatBox extends Component {
     const newContent = event.target.value;
     const canSend = newContent.trim() != '';
     const isCommand = newContent[0] == '/';
-    const commandHints = isCommand ? matchingCommands(newContent.substring(1)) : [];
+    const commandHints = isCommand ? matchingCommands(newContent.split('/')[1]) : [];
 
     this.setState({
       message: event.target.value,
@@ -38,11 +38,17 @@ export class ChatBox extends Component {
     const { sendMessage } = this.props;
     const { message, canSend } = this.state;
 
-    if(canSend && shouldSend) {
-      sendMessage(message);
-      ev.target.value = "";
-      ev.preventDefault();
-    }
+    if(!(canSend && shouldSend)) return;
+
+    sendMessage(message);
+    ev.target.value = "";
+    this.setState({
+      message: "",
+      canSend: false,
+      isCommand: false,
+      commandHints: []
+    });
+    ev.preventDefault();
   }
 
   render() {
@@ -56,15 +62,16 @@ export class ChatBox extends Component {
             class="bg-black text-white w-full p-2 mt-2 rounded block"
             onKeyDown={this.maybeSendMessage.bind(this)}
             onInput={this.handleMessageChange.bind(this)}
-            placeholder="Send a message or command"
+            placeholder="Send a message or type `/` to start a command"
             value={message}
           ></textarea>
         </div>
         <div class="chat-command-hints">
           { isCommand &&
-            _.map(commandHints, (hint) => {
-              return <div>
-                {hint}
+            _.map(commandHints, ({name, grammar, description}) => {
+              return <div class="py-1">
+                <div><strong>{name}</strong> - <em>{grammar}</em></div>
+                <div class="ml-4">{description}</div>
               </div>;
             })
           }

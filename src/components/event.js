@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { DateTime } from 'luxon';
 
 
-const displayForEvent = (event) => {
+const displayForEvent = (event, room) => {
   const { type, raw_data } = event;
   const data = JSON.parse(raw_data);
   switch(type) {
@@ -29,13 +29,24 @@ const displayForEvent = (event) => {
     }
 
     case 'player_added': {
-      const { player } = data;
-      return <span>Player Added - <small>Name: {player}</small></span>;
+      const { user_id, user } = data;
+      const { name } = user;
+      return <span>added <strong>{name}</strong> as a player</span>;
     }
 
-    case 'player_removed': {
-      const { player } = data;
-      return <span>Player Removed - <small>Name: {player}</small></span>;
+    case 'player_team_joined': {
+      const { player_id, team } = data;
+      const player = room.players[player_id];
+      return <span><strong>{player.name}</strong> joined team <strong>{team}</strong></span>;
+    }
+
+    case 'player_team_changed': {
+      const { player_id, old_team, team } = data;
+      const player = room.players[player_id];
+      return <span>
+        <strong>{player.name}</strong> changed teams from
+        <strong> {old_team}</strong> to <strong>{team}</strong>
+      </span>;
     }
 
     case 'cell_marked': {
@@ -66,7 +77,8 @@ const displayForEvent = (event) => {
 
 export const Event = (props) => {
   const {
-    event
+    event,
+    room
   } = props;
 
   const {
@@ -90,7 +102,7 @@ export const Event = (props) => {
       <div class="text-grey-dark">
         {userName} <small>- {formattedTime}</small>
       </div>
-      <div class="ml-4 mt-1">{displayForEvent(event)}</div>
+      <div class="ml-4 mt-1">{displayForEvent(event, room)}</div>
     </div>
   );
 }
