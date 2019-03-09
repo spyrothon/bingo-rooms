@@ -85,17 +85,19 @@ export const Event = (props) => {
   const data = JSON.parse(raw_data);
   const meta = JSON.parse(raw_meta);
   const { user } = meta;
-  const userName = user ? user.name : 'unknown';
+  const player = room.players[user.id];
+  const userName = player.nickname || user.name || 'Guest';
+  const userColor = player.color || 'inherit';
 
   const formattedTime = DateTime.fromISO(event.timestamp).toLocaleString(DateTime.TIME_SIMPLE);
 
 
   return (
-    <div class="event-log-event my-2">
+    <div class="event-log-event pl-2 mx-2 my-2" style={{borderLeftColor: userColor, borderLeftWidth: 4, borderLeftStyle: 'solid'}}>
       <div class="text-grey-dark">
-        {userName} <small>- {formattedTime}</small>
+        <strong>{userName}</strong> <small>- {formattedTime}</small>
       </div>
-      <div class="ml-4 mt-1">{displayForEvent(event, room)}</div>
+      <div class="ml-2 mt-1">{displayForEvent(event, room)}</div>
     </div>
   );
 }

@@ -42,9 +42,7 @@ export const Room = (props) => {
             <Players players={players} />
           </div>
 
-          <div class="section">
-            <h2>Log</h2>
-
+          <div class="section --no-padding">
             <EventLog events={events} room={room} />
 
             <SmartChatBox roomId={room_id} user={user} />

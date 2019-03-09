@@ -8,9 +8,7 @@
   .chat-box {
     display: block;
     position: relative;
-    margin-left: -1rem;
-    margin-right: -1rem;
-    margin-bottom: calc(-0.25rem + 1px);
+    margin-bottom: calc(0.25rem + 1px);
     height: 3rem;
     overflow: visible;
     box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.2);
