@@ -86,8 +86,8 @@ export const Event = (props) => {
   const meta = JSON.parse(raw_meta);
   const { user } = meta;
   const player = room.players[user.id];
-  const userName = player.nickname || user.name || 'Guest';
-  const userColor = player.color || 'inherit';
+  const userName = (player && player.nickname) || user.name || 'Guest';
+  const userColor = (player && player.color) || 'inherit';
 
   const formattedTime = DateTime.fromISO(event.timestamp).toLocaleString(DateTime.TIME_SIMPLE);
 

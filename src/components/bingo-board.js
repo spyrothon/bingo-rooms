@@ -14,7 +14,8 @@ export class BingoBoard extends Component {
     const { players } = room;
     const colors = _.chain(cell.marked_by)
         .sort()
-        .map((pId) => players[pId].color)
+        .map('color')
+        .uniq()
         .value();
 
     switch(colors.length) {
