@@ -4,7 +4,7 @@ import { Actions } from './constants';
 import { socket } from './store';
 import { interpretAndDispatchMessage } from './command-interpreter';
 
-const API_HOST = "http://localhost:3000/api/play";
+const API_HOST = "http://bingo.spyrothon.org/api/play";
 
 const defaultHeaders = () => ({
   'Accept': 'application/json',

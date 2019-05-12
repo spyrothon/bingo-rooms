@@ -13,6 +13,7 @@ export class BingoBoard extends Component {
   styleForCell(cell, room) {
     const { players } = room;
     const colors = _.chain(cell.marked_by)
+        .map((id) => players[id])
         .sort()
         .map('color')
         .uniq()
