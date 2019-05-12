@@ -244,6 +244,22 @@ export function setNickname(roomId, nickname) {
   }
 }
 
+export function generateBoard(roomId) {
+  return dispatch => {
+    fetch(`${API_HOST}/rooms/${roomId}/update_board`, {
+      headers: defaultHeaders(),
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({})
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((response) => {
+      return true;
+    });
+  }
+}
+
 export function setColor(roomId, color) {
   return dispatch => {
     fetch(`${API_HOST}/rooms/${roomId}/set_color`, {

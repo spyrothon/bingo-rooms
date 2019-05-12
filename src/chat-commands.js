@@ -4,6 +4,7 @@ import { JoinRoomCommand } from './chat-commands/join-room';
 // import { LeaveRoomCommand } from './chat-commands/leave-room';
 import { SetNicknameCommand } from './chat-commands/set-nickname';
 import { SetColorCommand } from './chat-commands/set-color';
+import { GenerateBoardCommand } from './chat-commands/generate-board';
 
 export const Commands = {
   mark:   MarkCellCommand,
@@ -11,5 +12,6 @@ export const Commands = {
   join:   JoinRoomCommand,
   // leave:  LeaveRoomCommand,
   nick:   SetNicknameCommand,
-  color:  SetColorCommand
+  color:  SetColorCommand,
+  generate: GenerateBoardCommand,
 }
